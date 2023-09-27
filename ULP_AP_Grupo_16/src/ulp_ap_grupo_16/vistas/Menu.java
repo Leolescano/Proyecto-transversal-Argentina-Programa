@@ -1,7 +1,6 @@
 
 package ulp_ap_grupo_16.vistas;
 
-import java.awt.event.*;
 import javax.swing.*;
 
 public class Menu extends javax.swing.JFrame {
@@ -172,9 +171,9 @@ public class Menu extends javax.swing.JFrame {
     private void jmAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAlumnoActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
-       AlumnoVista alu = new AlumnoVista();
+        AlumnoVista alu = new AlumnoVista();
       
-      alu.setVisible(true);
+        alu.setVisible(true);
         escritorio.add(alu);
         escritorio.moveToFront(alu);
     }//GEN-LAST:event_jmAlumnoActionPerformed
@@ -220,33 +219,23 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jmConsultaActionPerformed
 
     private void jmSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSalirActionPerformed
-         
+        
     }//GEN-LAST:event_jmSalirActionPerformed
 
     private void jmSalirMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_jmSalirMenuKeyPressed
-        
-        int opcion = JOptionPane.showConfirmDialog(null, "¿Seguro que quieres salir?", "Confirmaci  ón", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (opcion == JOptionPane.YES_OPTION) {
-            System.exit(0);
-        }
-
-        
+      
     }//GEN-LAST:event_jmSalirMenuKeyPressed
-
+ 
     private void jmSalirFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jmSalirFocusGained
       
-      jmSalir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Cerrar la aplicación
-                System.exit(0);
-            }
-        });      
+      
     }//GEN-LAST:event_jmSalirFocusGained
 
     private void jmSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmSalirMouseClicked
-        
-        dispose();
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas salir del programa?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+            System.exit(0); // Terminar la ejecución del programa
+        }   
     }//GEN-LAST:event_jmSalirMouseClicked
      
     public static void main(String args[]) {

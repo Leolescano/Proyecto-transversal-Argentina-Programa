@@ -29,7 +29,7 @@ public class MateriaData {
             }
             ps.close();
         } catch(SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla materia");
+            JOptionPane.showMessageDialog(null, "Esa materia ya existe.");
         }
     }
 

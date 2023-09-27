@@ -13,13 +13,11 @@ public class Nota extends javax.swing.JInternalFrame {
     
     private static String nuevoValorStr;
     private static int idAlumno;
-    
     private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
              return column == 2; // Solo permite editar la columna con índice 2 (es decir, la columna "Nota")
-    }
-    
+        }
     };
     
     public Nota() {
@@ -31,13 +29,10 @@ public class Nota extends javax.swing.JInternalFrame {
     private void llenarAlumnos(){
         AlumnoData aluData = new AlumnoData();
         List <Alumno> listaAlu =  aluData.listarAlumnos();
-        //jcAlumnosNota.removeAllItems();  
-
         for(int i = 0; i < listaAlu.size(); i++) {
             int recoge1 =(listaAlu.get(i).getDni());        
             String recoge2 =(listaAlu.get(i).getApellido());
             String recoge3 =(listaAlu.get(i).getNombre());
-
             String resultadoConcatenado = recoge1 + " , " + recoge2 + " , " + recoge3;
             jcAlumnosNota.addItem(resultadoConcatenado);
        }             
@@ -141,22 +136,19 @@ public class Nota extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jcAlumnosNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcAlumnosNotaActionPerformed
+    
         InscripcionData inscripcionData = new InscripcionData();
         AlumnoData alumnoData = new AlumnoData();
         String alumnoSeleccionado = (String) jcAlumnosNota.getSelectedItem();
         int posicionComa;
         int idMateria;
         String dniAlumnoStr;
-        
         posicionComa = alumnoSeleccionado.indexOf(",");
         dniAlumnoStr = alumnoSeleccionado.substring(0, posicionComa).trim();
         Alumno alumnoBuscado = alumnoData.buscarAlumnoPorDni(Integer.parseInt(dniAlumnoStr));
-        
         idAlumno = alumnoBuscado.getIdAlumno();
-        
         List<Inscripcion> cursadasAlumno = new ArrayList<>();
         cursadasAlumno = (List) inscripcionData.obtenerInscripcionesPorAlumno(alumnoBuscado.getIdAlumno());
-     
         borrarFilasTabla(); 
         if (cursadasAlumno.size() > 0) {
             for (Inscripcion inscripcion : cursadasAlumno) {
@@ -167,41 +159,34 @@ public class Nota extends javax.swing.JInternalFrame {
        } else {
            JOptionPane.showMessageDialog(this, "El alumno no esta cursando ninguna materia.",null, JOptionPane.WARNING_MESSAGE);
        }
-        
-    
-    jtNotas.getModel().addTableModelListener(new TableModelListener() {
-    @Override
-    public void tableChanged(TableModelEvent e) {
-        if (e.getType() == TableModelEvent.UPDATE) {
-            int row = e.getFirstRow();
-            int column = e.getColumn();
+       jtNotas.getModel().addTableModelListener(new TableModelListener() {
+       @Override
+       public void tableChanged(TableModelEvent e) {
+            if (e.getType() == TableModelEvent.UPDATE) {
+                int row = e.getFirstRow();
+                int column = e.getColumn();
 
-            if (column == 2) { 
-                nuevoValorStr  = (String) modelo.getValueAt(row, column);
-               
+                if (column == 2) { 
+                    nuevoValorStr  = (String) modelo.getValueAt(row, column);
+
+                }
             }
-        }
-      }
-    });
-               
-    
+          }
+        });    
     }//GEN-LAST:event_jcAlumnosNotaActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        // TODO add your handling code here:
+      
         InscripcionData inscripcionData = new InscripcionData();
-        
         int filaSeleccionada = jtNotas.getSelectedRow();
         int column = 0;  // por ejemplo, tercera columna
         int idMateria = (int) jtNotas.getModel().getValueAt(filaSeleccionada, column);
-       
-        inscripcionData.actualizarNota(idAlumno, idMateria, Double.parseDouble(nuevoValorStr));
-        
-        
+        inscripcionData.actualizarNota(idAlumno, idMateria, Double.parseDouble(nuevoValorStr));                
     }//GEN-LAST:event_jbGuardarActionPerformed
     
     private void armarCabecera() {
@@ -210,7 +195,6 @@ public class Nota extends javax.swing.JInternalFrame {
         modelo.addColumn("Nombre");
         modelo.addColumn("Nota");    
         jtNotas.setModel(modelo);
-      
     }
 
     private void borrarFilasTabla() {
@@ -219,7 +203,6 @@ public class Nota extends javax.swing.JInternalFrame {
         for(int i = indice; i >= 0; i--){
             modelo.removeRow(i);
         }
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

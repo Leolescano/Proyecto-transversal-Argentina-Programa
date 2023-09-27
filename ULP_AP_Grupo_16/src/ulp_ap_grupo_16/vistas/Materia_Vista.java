@@ -12,8 +12,8 @@ import ulp_ap_grupo_16.entidades.*;
 
 
 public class Materia_Vista extends javax.swing.JInternalFrame {
-   private MateriaData materiaData = new MateriaData();
-   private Materia materiaBuscada;
+    private MateriaData materiaData = new MateriaData();
+    private Materia materiaBuscada;
    
     public Materia_Vista() {
         initComponents();
@@ -191,57 +191,43 @@ public class Materia_Vista extends javax.swing.JInternalFrame {
         
         String idMateriaStr = jtIdMateria.getText().trim();  
         int idmat = Integer.parseInt( idMateriaStr);
-       
         this.materiaBuscada = this.materiaData.buscarMateria(idmat);
-
-       if (materiaBuscada != null) {
+        if (materiaBuscada != null) {
             jtNombre.setText(materiaBuscada.getNombre());
             jtAnio.setText(String.valueOf(materiaBuscada.getAnio()));
             jrActivo.setSelected(materiaBuscada.isEstado());
-        
-       } else {
+        } else {
             jtIdMateria.setText("");
             jtNombre.setText("");
             jtAnio.setText("");
             jrActivo.setSelected(false);
             jtIdMateria.requestFocus();
-       }
-        
-        
-        
+        }        
     }//GEN-LAST:event_jbBuscar3ActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
 
-
-      if (materiaBuscada != null) {
-
-        InscripcionData inscripcionData = new InscripcionData();
-        List<Inscripcion> inscripciones = (ArrayList)inscripcionData.obtenerInscripciones();
-            
-        boolean bandera = true;
         if (materiaBuscada != null) {
-            for (Inscripcion inscripcion : inscripciones) {
-                if (inscripcion.getMateria().getIdMateria() == materiaBuscada.getIdMateria())
-                    bandera = false;
+            InscripcionData inscripcionData = new InscripcionData();
+            List<Inscripcion> inscripciones = (ArrayList)inscripcionData.obtenerInscripciones();
+            boolean bandera = true;
+            if (materiaBuscada != null) {
+                for (Inscripcion inscripcion : inscripciones) {
+                    if (inscripcion.getMateria().getIdMateria() == materiaBuscada.getIdMateria())
+                        bandera = false;
+                }
+                if (bandera) {
+                    materiaData.eliminarMateria(this.materiaBuscada.getIdMateria());  
+                    jtIdMateria.setText("");
+                    jtNombre.setText("");
+                    jtAnio.setText("");
+                    jrActivo.setSelected(false);
+                    jtIdMateria.requestFocus();
+                } else {
+                    JOptionPane.showMessageDialog(null, "No puedes eliminar esta materia por que tienes alumnos cursando.");
+                }
             }
-            
-            if (bandera) {
-                materiaData.eliminarMateria(this.materiaBuscada.getIdMateria());  
-                jtIdMateria.setText("");
-                jtNombre.setText("");
-                jtAnio.setText("");
-                jrActivo.setSelected(false);
-                jtIdMateria.requestFocus();
-            
-            } else {
-                JOptionPane.showMessageDialog(null, "No puedes eliminar esta materia por que tienes alumnos cursando.");
-            
-            }
-           
-       }
-      }
-       
+        }       
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
@@ -249,33 +235,26 @@ public class Materia_Vista extends javax.swing.JInternalFrame {
         jbGuardar.setEnabled(true);
         jtIdMateria.setText("Codigo automatico");
         jtIdMateria.setEditable(false);
-        
         jtNombre.setText("");
         jtNombre.requestFocus();
         jtAnio.setText("");
         jrActivo.setSelected(true);
         jbBuscar3.setEnabled(false);
         jbEliminar.setEnabled(false);
-        jrActivo.setEnabled(false);
-   
+        jrActivo.setEnabled(false);   
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         
         Materia materiaNueva = new Materia();
-       
         try {            
-
             String nombre = jtNombre.getText();
             materiaNueva.setNombre(nombre);
-            
             int anio = Integer.parseInt(jtAnio.getText()) ;       
             materiaNueva.setAnio(anio);
-            
             boolean estado = jrActivo.isSelected();
             materiaNueva.setEstado(estado);
             materiaData.guardarMateria(materiaNueva);
-            
             jtIdMateria.setEditable(true);
             jtIdMateria.setText("");
             jtNombre.setText("");
@@ -283,21 +262,16 @@ public class Materia_Vista extends javax.swing.JInternalFrame {
             jrActivo.setSelected(false);
             jbGuardar.setEnabled(false);
             jbEliminar.setEnabled(true);
-            jtIdMateria.requestFocus();
-            
-            
-            
-        } catch(NullPointerException e ){
+            jtIdMateria.requestFocus();            
+        } catch (NullPointerException e ){
               JOptionPane.showMessageDialog(this, "Debe ingresar año valido");
               jtAnio.requestFocus();
-
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "No debe dejar campos vacios");
         }
-    jbBuscar3.setEnabled(true);
+        jbBuscar3.setEnabled(true);
     }//GEN-LAST:event_jbGuardarActionPerformed
-   
-   
+     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -315,6 +289,5 @@ public class Materia_Vista extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtIdMateria;
     private javax.swing.JTextField jtNombre;
     // End of variables declaration//GEN-END:variables
-
-  }
+}
 

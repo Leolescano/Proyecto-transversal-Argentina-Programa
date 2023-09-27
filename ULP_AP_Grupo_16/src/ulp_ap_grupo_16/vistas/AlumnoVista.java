@@ -9,6 +9,7 @@ import ulp_ap_grupo_16.entidades.*;
 
 
 public class AlumnoVista extends javax.swing.JInternalFrame {
+    
     AlumnoData aluData = new AlumnoData();
     private Alumno alumnoBuscado;
     
@@ -199,99 +200,84 @@ public class AlumnoVista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
-        // TODO add your handling code here:
+        
         jtDNI.setText("");
         jtApellido.setText("");
         jtNombre.setText("");
         jCheckBoxEstado.setSelected(false);
         jtFechaNacimiento.setDate(null);
         jtDNI.requestFocus();
-      
+        jbEliminar.setEnabled(false);
+        jbBuscar3.setEnabled(false);
       
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jtDNIFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtDNIFocusGained
-    // TODO add your handling code here:
-        
+    
         jtDNI.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jtApellido.requestFocusInWindow(); // solicita el foco para textField2
-            }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            jtApellido.requestFocusInWindow(); // solicita el foco para textField2
+        }
         });
     }//GEN-LAST:event_jtDNIFocusGained
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+       
         try {   
             int dni = 0;
             String dniStr = "";
-
-           
             dniStr = jtDNI.getText().trim();  
             dni = Integer.parseInt(dniStr);
-
             String apellido= jtApellido.getText();
             String nombre = jtNombre.getText();
             LocalDate fechaNacimiento = jtFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             boolean estado = jCheckBoxEstado.isSelected();         
-            
             Alumno nuevo = new Alumno(dni, apellido, nombre, fechaNacimiento, estado);
-           
             AlumnoData.guardarAlumno(nuevo);
-                
             jtDNI.setText("");
             jtApellido.setText("");
             jtNombre.setText("");
             jCheckBoxEstado.setSelected(false);
             jtFechaNacimiento.setDate(null);
             jtDNI.requestFocus();
-        
+            jbEliminar.setEnabled(true);
+            jbBuscar3.setEnabled(true);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Dni debe ser numero ",null, JOptionPane.WARNING_MESSAGE);
                   
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, "No debe dejar campos vacios");
-        }
-      
+        }      
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jtDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtDNIActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jtDNIActionPerformed
 
     private void jbBuscar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscar3ActionPerformed
-        // TODO add your handling code here:
+       
         try {          
             String dniStr = jtDNI.getText().trim();  
             int dni = Integer.parseInt(dniStr);
-           
-            
             this.alumnoBuscado = aluData.buscarAlumnoPorDni(dni);
-            
-            
             Date fecha =  Date.valueOf(alumnoBuscado.getFechaNacimiento());          
             jtApellido.setText(alumnoBuscado.getApellido());
             jtNombre.setText(alumnoBuscado.getNombre());
             jCheckBoxEstado.setSelected(alumnoBuscado.isEstado());
             jtFechaNacimiento.setDate(fecha);
-            
-            
-            
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Dni debe ser numero ",null, JOptionPane.WARNING_MESSAGE);
             jtDNI.requestFocus(true);
         } catch (NullPointerException e) {
             jtDNI.requestFocus(true);
-           
         }    
     }//GEN-LAST:event_jbBuscar3ActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-        // TODO add your handling code here:
-        
-       
-        
-        if (alumnoBuscado.isEstado()) {
+             
+        try {
+            if (alumnoBuscado.isEstado()) {
             aluData.eliminarAlumno(alumnoBuscado.getIdAlumno());
             jtDNI.setText("");
             jtApellido.setText("");
@@ -299,12 +285,12 @@ public class AlumnoVista extends javax.swing.JInternalFrame {
             jCheckBoxEstado.setSelected(false);
             jtFechaNacimiento.setDate(null);
             jtDNI.requestFocus();
-        
         } else {
-            JOptionPane.showMessageDialog(this, "Ese alumno ya esta eliminando",null, JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ese alumno ya esta eliminando.",null, JOptionPane.WARNING_MESSAGE);
         }
-        
-        
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Deves buscar un alumno para poder eliminarlo.",null, JOptionPane.WARNING_MESSAGE);
+        }              
     }//GEN-LAST:event_jbEliminarActionPerformed
 
 

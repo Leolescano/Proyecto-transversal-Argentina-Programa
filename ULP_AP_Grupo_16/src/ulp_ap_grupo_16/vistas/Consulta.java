@@ -1,24 +1,20 @@
 
 package ulp_ap_grupo_16.vistas;
 
-import java.util.List;
-import javax.swing.table.DefaultTableModel;
-import ulp_ap_grupo_16.accesoADatos.InscripcionData;
-import ulp_ap_grupo_16.accesoADatos.MateriaData;
-import ulp_ap_grupo_16.entidades.Alumno;
-import ulp_ap_grupo_16.entidades.Inscripcion;
-import ulp_ap_grupo_16.entidades.Materia;
+import java.util.*;
+import javax.swing.table.*;
+import ulp_ap_grupo_16.accesoADatos.*;
+import ulp_ap_grupo_16.entidades.*;
 
 
-public class Consulta extends javax.swing.JInternalFrame {
- private DefaultTableModel modelo = new DefaultTableModel();
+ public class Consulta extends javax.swing.JInternalFrame {
+    private DefaultTableModel modelo = new DefaultTableModel();
 
     public Consulta() {
         initComponents();
         armarCabecera();
         llenarMaterias();
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -108,22 +104,23 @@ public class Consulta extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-     private void llenarMaterias(){
-         MateriaData matData = new MateriaData();
-         List<Materia> materias = matData.listarMaterias();
-         
-            jcMaterias.removeAllItems();
-   
-            for (Materia materia : materias) {
-                jcMaterias.addItem(materia.getNombre()); 
-            }   
-     }
+    private void llenarMaterias(){
+       
+        MateriaData matData = new MateriaData();
+        List<Materia> materias = matData.listarMaterias();
+        jcMaterias.removeAllItems();
+        for (Materia materia : materias) {
+            jcMaterias.addItem(materia.getNombre()); 
+        }   
+    }
+
     private void jcMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcMateriasActionPerformed
-            String nombreMateria = (String) jcMaterias.getSelectedItem();   
-            InscripcionData inscData = new InscripcionData();
-            List<Inscripcion> inscripciones = inscData.obtenerInscripciones();
-            borrarFilasTabla();
-            if (nombreMateria != null) {
+        
+        String nombreMateria = (String) jcMaterias.getSelectedItem();   
+        InscripcionData inscData = new InscripcionData();
+        List<Inscripcion> inscripciones = inscData.obtenerInscripciones();
+        borrarFilasTabla();
+        if (nombreMateria != null) {
             for (Inscripcion inscripcion : inscripciones) {
                   if (nombreMateria.equalsIgnoreCase(inscripcion.getMateria().getNombre())) {
                       int idAlumno = inscripcion.getAlumno().getIdAlumno();
@@ -134,36 +131,34 @@ public class Consulta extends javax.swing.JInternalFrame {
                       modelo.addRow(new Object[]{idAlumno, dni, apellido, nombre});
                   }
             }
-            }
-            
+        }            
     }//GEN-LAST:event_jcMateriasActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox<String> jcMaterias;
-    private javax.swing.JTable jtConsulta;
-    // End of variables declaration//GEN-END:variables
-private void armarCabecera(){
-    //Para poner nombre de cabezera en tablas
-    modelo.addColumn("Id");
-    modelo.addColumn("Dni");
-    modelo.addColumn("Apellido");
-    modelo.addColumn("Nombre");
-    jtConsulta.setModel(modelo);
-}
-
+    private void armarCabecera(){
+    
+        modelo.addColumn("Id");
+        modelo.addColumn("Dni");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("Nombre");
+        jtConsulta.setModel(modelo);
+    }
+    
+    private void borrarFilasTabla(){
+        
+        int indice= modelo.getRowCount()-1;
+        for(int i = indice; i>=0;i--){
+            modelo.removeRow(i);
+        }
+    }
+    
+    
     private List<Materia> obtenerMateriasPorAlumno(int idAlumno) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
     private static class jcMaterias {
 
         private static void removeAllItems() {
@@ -177,15 +172,14 @@ private void armarCabecera(){
         public jcMaterias() {
         }
     }
-    private void borrarFilasTabla(){
-    int indice= modelo.getRowCount()-1;
 
-    for(int i = indice; i>=0;i--){
-    modelo.removeRow(i);
-}
-
-
-
-}
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbSalir;
+    private javax.swing.JComboBox<String> jcMaterias;
+    private javax.swing.JTable jtConsulta;
+    // End of variables declaration//GEN-END:variables
 }
 

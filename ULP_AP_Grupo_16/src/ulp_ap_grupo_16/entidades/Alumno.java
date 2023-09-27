@@ -1,6 +1,6 @@
 package ulp_ap_grupo_16.entidades;
 
-import java.time.LocalDate;
+import java.time.*;
 
 public class Alumno {
     private int idAlumno;
@@ -10,8 +10,7 @@ public class Alumno {
     private LocalDate fechaNacimiento;
     private boolean estado;
 
-    public Alumno() {
-    }
+    public Alumno() {}
 
     public Alumno(int idAlumno, int dni, String apellido, String nombre, LocalDate fechaNacimiento, boolean estado) {
         this.idAlumno = idAlumno;
@@ -83,6 +82,4 @@ public class Alumno {
      return dni+", "+apellido+", "+nombre;
         //return "Alumno{" + "idAlumno=" + idAlumno + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + '}';
     }
-    
-    
 }

@@ -6,8 +6,7 @@ public class Inscripcion {
     private Materia materia;
     private double nota;
 
-    public Inscripcion() {
-    }
+    public Inscripcion() {}
 
     public Inscripcion(int idIncripcion, Alumno alumno, Materia materia, double nota) {
         this.idInscripcion = idInscripcion;
@@ -59,7 +58,4 @@ public class Inscripcion {
         String insc = idInscripcion + " " + alumno.getApellido() + ", " +  alumno.getNombre() + " " + materia.getNombre();
         return insc;
     }
-    
-    
-    
 }

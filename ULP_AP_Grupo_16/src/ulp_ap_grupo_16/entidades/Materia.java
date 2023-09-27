@@ -6,8 +6,7 @@ public class Materia {
     private String nombre;
     private boolean estado;
 
-    public Materia() {
-    }
+    public Materia() {}
 
     public Materia(int idMateria, int anio, String nombre, boolean estado) {
         this.idMateria = idMateria;
@@ -25,9 +24,6 @@ public class Materia {
     public Materia(int idMateria, String nombreMateria, int anio, boolean b) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    
-   
 
     public int getIdMateria() {
         return idMateria;
@@ -65,5 +61,4 @@ public class Materia {
     public String toString() {
         return "Materia{" + "idMateria=" + idMateria + ", anio=" + anio + ", nombre=" + nombre + ", activo=" + estado + '}';
     }
-   
 }

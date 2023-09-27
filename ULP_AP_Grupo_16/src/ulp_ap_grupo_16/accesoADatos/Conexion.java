@@ -1,9 +1,10 @@
 package ulp_ap_grupo_16.accesoADatos;
 
 import java.sql.*;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class Conexion {
+    
     private static final String URL = "jdbc:mariadb://localhost/";
     private static final String DB = "universidad_grupo16";
     private static final String USUARIO = "root";
@@ -19,9 +20,9 @@ public class Conexion {
                 Class.forName("org.mariadb.jdbc.Driver");
                 connection = DriverManager.getConnection(URL+DB, USUARIO, PASSWORD);
                 JOptionPane.showMessageDialog(null, "Conectado");
-            } catch (ClassNotFoundException ex) {
+            } catch(ClassNotFoundException ex) {
                JOptionPane.showMessageDialog(null, "Error al cargar los drivers " + ex.getMessage());
-            } catch (SQLException ex) {
+            } catch(SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Error al conectarse a la DB " + ex.getMessage());
             }
         }

@@ -5,17 +5,18 @@ import javax.swing.*;
 import ulp_ap_grupo_16.entidades.*;
 
 public class InscripcionData {
+   
     private Connection con = null; 
     private MateriaData md = new MateriaData();
     private AlumnoData ad = new AlumnoData();
 
-public InscripcionData() {
-   this.con = Conexion.getConexion();
-}
+    public InscripcionData() {
+       this.con = Conexion.getConexion();
+    }
 
-public void guardarInscripcion(Inscripcion insc) {
-    String sql = "INSERT INTO inscripcion (idAlumno, idMateria, nota) VALUES (?, ?, ?)";
+    public void guardarInscripcion(Inscripcion insc) {
     
+        String sql = "INSERT INTO inscripcion (idAlumno, idMateria, nota) VALUES (?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, insc.getAlumno().getIdAlumno());
@@ -28,56 +29,51 @@ public void guardarInscripcion(Inscripcion insc) {
                 JOptionPane.showMessageDialog(null, "Incripción registrada");
             }
             ps.close();
-            
-        } catch (SQLException ex) {
-              JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripción");
+        } catch(SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripción");
         }
 }
 
-public void actualizarNota(int idAlumno, int idMateria, double nota) {
+    public void actualizarNota(int idAlumno, int idMateria, double nota) {
     
-    String sql = "UPDATE inscripcion SET nota = ? WHERE idAlumno = ? AND idMateria = ?";
-    try {
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setDouble(1, nota);
-        ps.setInt(2, idAlumno);
-        ps.setInt(3, idMateria);
-        
-        int filas = ps.executeUpdate();
-        if(filas > 0) {
-            JOptionPane.showMessageDialog(null, "Nota actualizada");
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontró una inscripción con el idAlumno y idMateria proporcionados.");
+        String sql = "UPDATE inscripcion SET nota = ? WHERE idAlumno = ? AND idMateria = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDouble(1, nota);
+            ps.setInt(2, idAlumno);
+            ps.setInt(3, idMateria);
+            int filas = ps.executeUpdate();
+            if(filas > 0) {
+                JOptionPane.showMessageDialog(null, "Nota actualizada");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró una inscripción con el idAlumno y idMateria proporcionados.");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripción");
         }
-        
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripción");
     }
-}
 
-public void borrarInscripcion(int idAlumno, int idMateria) {
-    String sql = "DELETE FROM inscripcion WHERE idAlumno = ? AND idMateria = ?";
+    public void borrarInscripcion(int idAlumno, int idMateria) {
+    
+        String sql = "DELETE FROM inscripcion WHERE idAlumno = ? AND idMateria = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idAlumno);
             ps.setInt(2, idMateria);
-            
             int filas = ps.executeUpdate();
             if(filas > 0) {
                 JOptionPane.showMessageDialog(null, "Inscripción borrada");
-        }
-            
+            }
             ps.close();
-            
-        } catch (SQLException ex) {
+        } catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripción");
         }
+    }
 
-}
-
-public List<Inscripcion> obtenerInscripciones(){
-    ArrayList<Inscripcion> cursadas = new ArrayList<>();
-    String sql = "SELECT * FROM inscripcion";
+    public List<Inscripcion> obtenerInscripciones(){
+     
+        ArrayList<Inscripcion> cursadas = new ArrayList<>();
+        String sql = "SELECT * FROM inscripcion";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -92,15 +88,16 @@ public List<Inscripcion> obtenerInscripciones(){
                 cursadas.add(insc);
             }
             ps.close();
-        } catch (SQLException ex) {
+        } catch(SQLException ex) {
            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripcion");
         }
         return cursadas;
-}
+    }
 
-public List<Inscripcion> obtenerInscripcionesPorAlumno(int idAlumno){
-    ArrayList<Inscripcion> cursadas = new ArrayList<>();
-    String sql = "SELECT * FROM inscripcion WHERE idAlumno = ?";
+    public List<Inscripcion> obtenerInscripcionesPorAlumno(int idAlumno){
+    
+        ArrayList<Inscripcion> cursadas = new ArrayList<>();
+        String sql = "SELECT * FROM inscripcion WHERE idAlumno = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idAlumno);
@@ -116,18 +113,17 @@ public List<Inscripcion> obtenerInscripcionesPorAlumno(int idAlumno){
                 cursadas.add(insc);
             }
             ps.close();
-        } catch (SQLException ex) {
+        } catch(SQLException ex) {
            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripcion");
         }
         return cursadas;
-}
+    }   
 
-public List<Materia>obtenerMateriasCursadas(int idAlumo) {
-    ArrayList<Materia> materias = new ArrayList<>();
-    
-   String sql = "SELECT inscripcion.idMateria, nombre, año FROM inscripcion, materia WHERE "
+    public List<Materia>obtenerMateriasCursadas(int idAlumo) {
+ 
+        ArrayList<Materia> materias = new ArrayList<>();
+        String sql = "SELECT inscripcion.idMateria, nombre, año FROM inscripcion, materia WHERE "
                      + " inscripcion.idMateria = materia.idMateria AND inscripcion.idAlumno = ? ";
-
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idAlumo);
@@ -144,13 +140,14 @@ public List<Materia>obtenerMateriasCursadas(int idAlumo) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripcion");
         }
         return materias;
-}
+    }
 
-public List<Materia>obtenerMateriasNoCursadas(int idAlumo) {
-    ArrayList<Materia>materias = new ArrayList<>();
-    String sql = "SELECT * FROM materia WHERE estado = 1 AND idMateria not in "
+    public List<Materia>obtenerMateriasNoCursadas(int idAlumo) {
+ 
+        ArrayList<Materia>materias = new ArrayList<>();
+        String sql = "SELECT * FROM materia WHERE estado = 1 AND idMateria not in "
                          + " (SELECT idMateria FROM inscripcion WHERE idAlumno = ?)";
-     try {
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idAlumo);
             ResultSet rs = ps.executeQuery();
@@ -166,11 +163,12 @@ public List<Materia>obtenerMateriasNoCursadas(int idAlumo) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripcion");
         }
         return materias;
-}
+    }
 
-public List<Alumno>obtenerAlumnosPorMateria(int idMateria) {
-    ArrayList<Alumno> alumnosMateria = new ArrayList<>();
-    String sql = "SELECT a.idAlumno, dni, nombre, fechaNacimiento, estado FROM inscripcion i,"
+    public List<Alumno>obtenerAlumnosPorMateria(int idMateria) {
+        
+        ArrayList<Alumno> alumnosMateria = new ArrayList<>();
+        String sql = "SELECT a.idAlumno, dni, nombre, fechaNacimiento, estado FROM inscripcion i,"
                           + "alumno a WHERE i.idAlumno = a.idAlumno AND idMateria = ? AND a.estado = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -190,8 +188,6 @@ public List<Alumno>obtenerAlumnosPorMateria(int idMateria) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripcion");
         }
         return alumnosMateria;
-}
-
-  
+    }
 }
 

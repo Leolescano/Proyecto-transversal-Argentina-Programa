@@ -32,7 +32,7 @@ public  class AlumnoData {
             }
            ps.close();
         } catch(SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno");
+            JOptionPane.showMessageDialog(null, "Ese DNI ya existe en la DB de alumnos");
         }
     }
     

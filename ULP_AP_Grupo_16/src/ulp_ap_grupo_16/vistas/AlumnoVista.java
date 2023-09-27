@@ -204,12 +204,13 @@ public class AlumnoVista extends javax.swing.JInternalFrame {
         jtDNI.setText("");
         jtApellido.setText("");
         jtNombre.setText("");
-        jCheckBoxEstado.setSelected(false);
+        jCheckBoxEstado.setSelected(true);
         jtFechaNacimiento.setDate(null);
         jtDNI.requestFocus();
         jbEliminar.setEnabled(false);
         jbBuscar3.setEnabled(false);
         jbGuardar.setEnabled(true);
+        jCheckBoxEstado.setEnabled(false);
       
     }//GEN-LAST:event_jbNuevoActionPerformed
 
@@ -290,7 +291,7 @@ public class AlumnoVista extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Ese alumno ya esta eliminando.",null, JOptionPane.WARNING_MESSAGE);
         }
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(this, "Deves buscar un alumno para poder eliminarlo.",null, JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debes buscar un alumno para poder eliminarlo.",null, JOptionPane.WARNING_MESSAGE);
         }              
     }//GEN-LAST:event_jbEliminarActionPerformed
 

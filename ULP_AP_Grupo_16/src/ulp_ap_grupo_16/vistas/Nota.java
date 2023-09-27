@@ -186,7 +186,11 @@ public class Nota extends javax.swing.JInternalFrame {
         int filaSeleccionada = jtNotas.getSelectedRow();
         int column = 0;  // por ejemplo, tercera columna
         int idMateria = (int) jtNotas.getModel().getValueAt(filaSeleccionada, column);
-        inscripcionData.actualizarNota(idAlumno, idMateria, Double.parseDouble(nuevoValorStr));                
+        if (Double.parseDouble(nuevoValorStr) >= 0 && Double.parseDouble(nuevoValorStr) <= 10) {
+            inscripcionData.actualizarNota(idAlumno, idMateria, Double.parseDouble(nuevoValorStr));                
+        } else {
+            JOptionPane.showMessageDialog(this, "La nota debe ser entre 0 y 10.",null, JOptionPane.ERROR_MESSAGE);
+        }       
     }//GEN-LAST:event_jbGuardarActionPerformed
     
     private void armarCabecera() {

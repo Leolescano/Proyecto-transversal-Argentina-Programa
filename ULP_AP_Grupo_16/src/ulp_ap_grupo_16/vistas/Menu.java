@@ -2,6 +2,7 @@
 package ulp_ap_grupo_16.vistas;
 
 import java.awt.event.*;
+import javax.swing.*;
 
 public class Menu extends javax.swing.JFrame {
 
@@ -224,7 +225,12 @@ public class Menu extends javax.swing.JFrame {
 
     private void jmSalirMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_jmSalirMenuKeyPressed
         
-        System.exit(0);
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Seguro que quieres salir?", "Confirmaci  ón", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+
+        
     }//GEN-LAST:event_jmSalirMenuKeyPressed
 
     private void jmSalirFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jmSalirFocusGained

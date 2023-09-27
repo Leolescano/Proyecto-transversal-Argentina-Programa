@@ -14,8 +14,8 @@ public class AlumnoVista extends javax.swing.JInternalFrame {
     private Alumno alumnoBuscado;
     
     public AlumnoVista() {
-        initComponents();  
-        
+        initComponents();
+        jbGuardar.setEnabled(false);
     }     
 
     @SuppressWarnings("unchecked")
@@ -209,6 +209,7 @@ public class AlumnoVista extends javax.swing.JInternalFrame {
         jtDNI.requestFocus();
         jbEliminar.setEnabled(false);
         jbBuscar3.setEnabled(false);
+        jbGuardar.setEnabled(true);
       
     }//GEN-LAST:event_jbNuevoActionPerformed
 

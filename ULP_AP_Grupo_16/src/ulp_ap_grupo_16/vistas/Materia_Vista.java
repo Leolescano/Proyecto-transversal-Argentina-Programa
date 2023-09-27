@@ -263,10 +263,10 @@ public class Materia_Vista extends javax.swing.JInternalFrame {
             jbGuardar.setEnabled(false);
             jbEliminar.setEnabled(true);
             jtIdMateria.requestFocus();            
-        } catch (NullPointerException e ){
+        } catch(NullPointerException e ){
               JOptionPane.showMessageDialog(this, "Debe ingresar año valido");
               jtAnio.requestFocus();
-        } catch (NumberFormatException e) {
+        } catch(NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "No debe dejar campos vacios");
         }
         jbBuscar3.setEnabled(true);
